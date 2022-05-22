@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import "./App.css";
+import Card from "./components/card-sm/cars-sm";
 
 function App() {
+  const [data, setState] = useState([]);
+
+  const news = () => {
+    //public API 
+    const BaseURL = `https://inshorts.deta.dev/news?category=all`;
+
+    fetch(BaseURL)
+      .then((res) => res.json())
+      .then((data) => {
+        setState(data.data);
+      });
+  };
+
+  useEffect(() => news(), []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div id="small-card">
+        {data.map((item) => (
+          <Card
+            poster={item.imageUrl}
+            posterName={item.title}
+            title={item.title}
+            details={item.content}
+            date={item.date}
+          />
+        ))}
+      </div>
     </div>
   );
 }

@@ -1,0 +1,12 @@
+.category__list {
+    white-space: nowrap;
+    overflow-x:scroll;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 16px;
+}
+
+.category__list::-webkit-scrollbar {
+    display: none;
+}

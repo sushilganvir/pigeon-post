@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import Card from "./components/card-sm/cars-sm";
+import CategoryCard from "./components/category-card/category-card";
 
 function App() {
   const [data, setState] = useState([]);
 
-  const news = () => {
+  const news = (category) => {
     //public API 
-    const BaseURL = `https://inshorts.deta.dev/news?category=all`;
+    const BaseURL = `https://inshorts.deta.dev/news?category=${category}`;
 
     fetch(BaseURL)
       .then((res) => res.json())
@@ -16,10 +17,17 @@ function App() {
       });
   };
 
-  useEffect(() => news(), []);
+
+
+  useEffect(() => news('world'), []);
 
   return (
     <div className="App">
+
+    <div id="category__list">
+        <CategoryCard />
+    </div>
+      
       <div id="small-card">
         {data.map((item) => (
           <Card
